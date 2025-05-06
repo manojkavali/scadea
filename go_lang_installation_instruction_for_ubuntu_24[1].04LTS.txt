@@ -1,0 +1,47 @@
+Step-by-Step Guide to Install Go (Golang) on Ubuntu 24.04 LTS:
+
+1. **Update the System**
+   Open a terminal and update the package list:
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   ```
+
+2. **Download the Latest Go Binary**
+   Visit the official [Go Downloads page](https://go.dev/dl/) to find the latest version of Go. Use `wget` to download it:
+   ```bash
+   wget https://go.dev/dl/go<version>.linux-amd64.tar.gz
+   ```
+   Replace `<version>` with the latest version number (e.g., `1.20.5`).
+
+3. **Extract the Archive**
+   Extract the downloaded tarball to `/usr/local`:
+   ```bash
+   sudo tar -C /usr/local -xzf go<version>.linux-amd64.tar.gz
+   ```
+
+4. **Set Up Environment Variables**
+   Add Go's binary directory to your `PATH` environment variable. Open or create the `~/.profile` file and add:
+   ```bash
+   export PATH=$PATH:/usr/local/go/bin
+   ```
+   Apply the changes:
+   ```bash
+   source ~/.profile
+   ```
+
+5. **Verify the Installation**
+   Check the installed Go version:
+   ```bash
+   go version
+   ```
+
+6. **Optional: Set Up a Workspace**
+   Create a directory for Go projects and set the `GOPATH`:
+   ```bash
+   mkdir -p ~/go/{bin,src,pkg}
+   echo "export GOPATH=$HOME/go" >> ~/.profile
+   echo "export PATH=$PATH:$GOPATH/bin" >> ~/.profile
+   source ~/.profile
+   ```
+
+You are now ready to use Go on Ubuntu 24.04 LTS!

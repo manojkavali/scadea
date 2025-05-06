@@ -1,0 +1,45 @@
+Step-by-Step Guide to Install Terraform on Ubuntu 24.04 LTS:
+
+1. **Update the System**
+   Open a terminal and update the package list:
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   ```
+
+2. **Install Required Dependencies**
+   Install the required dependencies for downloading and verifying Terraform:
+   ```bash
+   sudo apt install -y gnupg software-properties-common curl
+   ```
+
+3. **Add the HashiCorp GPG Key**
+   Add the official HashiCorp GPG key to your system:
+   ```bash
+   curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+   ```
+
+4. **Add the HashiCorp Repository**
+   Add the HashiCorp repository to your system's sources list:
+   ```bash
+   echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+   ```
+
+5. **Update the Package List Again**
+   Refresh the package list to include the HashiCorp repository:
+   ```bash
+   sudo apt update
+   ```
+
+6. **Install Terraform**
+   Install Terraform using the package manager:
+   ```bash
+   sudo apt install -y terraform
+   ```
+
+7. **Verify the Installation**
+   Confirm that Terraform is installed by checking its version:
+   ```bash
+   terraform version
+   ```
+
+You are now ready to use Terraform on Ubuntu 24.04 LTS!

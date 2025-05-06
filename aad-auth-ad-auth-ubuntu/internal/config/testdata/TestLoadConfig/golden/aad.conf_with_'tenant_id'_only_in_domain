@@ -1,0 +1,5 @@
+tenantid: "2"
+appid: "1"
+offlinecredentialsexpiration: null
+homedirpattern: /home/%f
+shell: /bin/bash

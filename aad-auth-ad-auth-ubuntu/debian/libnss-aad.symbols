@@ -1,0 +1,15 @@
+libnss_aad.so libnss-aad #MINVER#
+ _nss_aad_endgrent@Base 0.1
+ _nss_aad_endpwent@Base 0.1
+ _nss_aad_endspent@Base 0.1
+ _nss_aad_getgrent_r@Base 0.1
+ _nss_aad_getgrgid_r@Base 0.1
+ _nss_aad_getgrnam_r@Base 0.1
+ _nss_aad_getpwent_r@Base 0.1
+ _nss_aad_getpwnam_r@Base 0.1
+ _nss_aad_getpwuid_r@Base 0.1
+ _nss_aad_getspent_r@Base 0.1
+ _nss_aad_getspnam_r@Base 0.1
+ _nss_aad_setgrent@Base 0.1
+ _nss_aad_setpwent@Base 0.1
+ _nss_aad_setspent@Base 0.1

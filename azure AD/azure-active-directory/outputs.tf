@@ -1,0 +1,3 @@
+tenant_id = azurerm_active_directory_directory.example.id
+application_id = azurerm_active_directory_application.example.application_id
+service_principal_id = azurerm_active_directory_service_principal.example.id

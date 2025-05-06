@@ -1,0 +1,136 @@
+aad-auth (0.5.2) mantic; urgency=medium
+
+  * Update Go version to 1.21
+    - This is not a new feature breakage. The previous build introduced
+      a new symbol required by golang-go-1.21, so we need to bump the
+      minimal required Go version to 1.21.
+  * Update MSAL version to 1.2.0
+  * Update dependencies to latest:
+    ** Rust
+      - cc
+      - libnss
+      - time
+    ** Go
+      - golang.org/x/sys
+  * Clean up some packaging steps
+    - Some workarounds were necessary due to unmerged upstream changes. Now
+      the fixes are merged and released, so packaging could be cleaned up.
+  * Update CI dependencies not related to package functionality:
+    - github.com/golangci/golangci-lint
+
+ -- Denison Barbosa <denison.barbosa@canonical.com>  Thu, 24 Aug 2023 06:03:22 -0400
+
+aad-auth (0.5.1) mantic; urgency=medium
+
+  * Fix FTBFS due to missing new required symbol
+
+ -- Denison Barbosa <denison.barbosa@canonical.com>  Fri, 18 Aug 2023 06:24:12 -0400
+
+aad-auth (0.5) mantic; urgency=medium
+
+  * New release (LP: #2031534)
+  * Update Go version to 1.20
+  * Update MSAL version to 1.1
+  * Specify default scopes for authentication
+    - After MSAL 1.0, the API no longer provides a set of default scopes in
+      case none was specified. So now we specify the authentication scopes
+      manually.
+  * Normalize names used in NSS queries
+    - Lowercase the names used in all queries to account for the case
+      insensitivity of AAD.
+  * Consider effective UID/GID when evaluating access to Shadow database:
+    - This fixes the issue where AAD users could not open sudo sessions, even
+      though they were part of the sudo group
+  * Improved errors messages
+    - Show link(s) to error code(s) description on Microsoft's site
+  * Update dependencies to latest:
+    ** Go
+      - github.com/mattn/go-sqlite3
+      - github.com/sirupsen/logrus
+      - github.com/spf13/cobra
+      - github.com/stretchr/testify
+      - golang.org/x/crypto
+      - golang.org/x/sys
+    ** Rust
+      - cc
+      - ctor
+      - goldenfile
+      - libc
+      - log
+      - paste
+      - proc-macro2
+      - rusqlite
+      - serde
+      - serde_yaml
+      - simple_logger
+      - syslog
+      - tempfile
+      - test-case
+      - time
+  * Update CI dependencies not related to package functionality:
+    - github.com/golangci/golangci-lint
+    - actions/setup-go
+    - peter-evans/create-pull-request
+
+ -- Denison Barbosa <denison.barbosa@canonical.com>  Mon, 14 Aug 2023 09:48:57 -0400
+
+aad-auth (0.4) lunar; urgency=medium
+
+  * First upload to ubuntu
+  * Rewrite NSS module in Rust: we can’t use Go to implicit use of threads
+    which is incompatible with binaries linking against use and only using
+    fork() without exec().
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 21 Feb 2023 10:22:47 +0100
+
+aad-auth (0.3) kinetic; urgency=medium
+
+  [ Gabriel Nagy ]
+  * Add aad-cli binary package (LP: #1989413)
+    - this is a CLI that allows managing various aspects of the AAD
+      integration, such as:
+      - editing the configuration file in a safe way
+      - querying cached users/groups attributes
+      - updating cached user attributes (shell/homedir)
+  * Update debian/copyright with the latest vendored dependencies
+
+  [ Denison Barbosa ]
+  * Improve consistency of offline credentials expiration
+    - a negative value disables offline authentication, and 0 prevents
+    the cache clean up process, allowing offline login for an
+    undetermined amount of time
+
+ -- Gabriel Nagy <gabriel.nagy@canonical.com>  Fri, 16 Sep 2022 15:37:40 +0300
+
+aad-auth (0.2) kinetic; urgency=medium
+
+  [ Didier Roche ]
+  [ Denison Barbosa ]
+  [ Gabriel Nagy ]
+  [ Jean-Baptiste Lallement ]
+  * Rewrite NSS Go library in C
+    - due to random crashes caused by loading a multithreaded shared library
+      written in Go from NSS, we now have a thin C wrapper calling a Go
+      executable which does the actual queries
+  * Add translations supported by gettext to the PAM module
+    - to support the future CLI integration, these are shipped in a
+      common architecture-independent package
+  * Ship a configuration template in the common package
+  * Fix segfault on interrupted pam conversation
+  * Fix FTBFS on armhf due to int type size
+  * Various test improvements and fixes
+  * Update dependencies to latest:
+    - github.com/AzureAD/microsoft-authentication-library-for-go
+    - github.com/go-ini/ini
+    - github.com/mattn/go-sqlite3
+
+ -- Gabriel Nagy <gabriel.nagy@canonical.com>  Fri, 09 Sep 2022 10:48:17 +0300
+
+aad-auth (0.1) kinetic; urgency=medium
+
+  [ Didier Roche ]
+  [ Denison Barbosa ]
+  [ Gabriel Nagy ]
+  * Initial release
+
+ -- Gabriel Nagy <gabriel.nagy@canonical.com>  Wed, 24 Aug 2022 16:22:54 +0200

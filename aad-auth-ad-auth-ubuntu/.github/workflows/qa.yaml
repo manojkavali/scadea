@@ -1,0 +1,50 @@
+name: QA & sanity checks
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  go:
+    name: Go - Code sanity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo DEBIAN_FRONTEND=noninteractive apt update
+          sudo DEBIAN_FRONTEND=noninteractive apt install -y libpam-dev libglib2.0-dev gcc gettext
+      - uses: actions/checkout@v4
+      - name: Go code sanity check
+        uses: canonical/desktop-engineering/gh-actions/go/code-sanity@main
+        with:
+          go-build-script: go build -ldflags='-s -w' -buildmode=c-shared -o pam_aad.so ./pam
+          golangci-lint-configfile: ".golangci-ci.yaml"
+          tools-directory: "tools"
+  rust:
+    name: Rust - Code sanity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: rustfmt, clippy
+      - name: Build crate
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args:  --all-features
+      - name: Check code format with rustfmt
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+      - name: Check code format with clippy
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features

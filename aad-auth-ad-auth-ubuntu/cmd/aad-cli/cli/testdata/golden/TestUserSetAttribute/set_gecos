@@ -1,0 +1,9 @@
+login            = myuser@domain.com
+password         = x
+uid              = 1929326240
+gid              = 1929326240
+gecos            = newvalue
+home             = /home/myuser@domain.com
+shell            = /bin/bash
+last_online_auth = SOME_TIME
+shadow_password  = $2a$10$R4ieqs.yZJuN1MSp2xhevemo5XnGK5oZ/RnMgWM67cpC3I10no97q
